@@ -1,42 +1,30 @@
 <Project>
-  <!--
-    This is a special file that contains shared configuration
-    for all project files in subdirectories.
-  -->
+    <Import Project="$(SolutionRoot)Config.Build.user.props" Condition="Exists('$(SolutionRoot)Config.Build.user.props')"/>
+    
+    <PropertyGroup>
+        <LangVersion>latest</LangVersion>
+        <Nullable>enable</Nullable>
+        <UseArtifactsOutput>true</UseArtifactsOutput>
+        <DebugSymbols>true</DebugSymbols>
+        <DebugType>embedded</DebugType>
+    </PropertyGroup>
+    <PropertyGroup Condition="'$(Configuration)' == 'Release'">
+        <PathMap>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)'))=./</PathMap>
+    </PropertyGroup>
+    
+    <PropertyGroup>
+        <SolutionRoot>$(MSBuildThisFileDirectory)</SolutionRoot>
+        
+        <GameInstallDir Condition="'$([MSBuild]::IsOSUnixLike())' == 'true' and $(GameInstallDir) == ''">/mnt/storage/SteamLibrary/steamapps/common/PEAK/</GameInstallDir>
+        <GameInstallDir Condition="'$([MSBuild]::IsOSUnixLike())' != 'true' and $(GameInstallDir) == ''">$(MSBuildProgramFiles32)/Steam/steamapps/common/PEAK/</GameInstallDir>
+        
+        <PluginsDir Condition="'$([MSBuild]::IsOSUnixLike())' == 'true' and $(PluginsDir) == ''">$(HOME)/.local/share/com.kesomannen.gale/peak/profiles/Default/BepInEx/plugins/</PluginsDir>
+        <PluginsDir Condition="'$([MSBuild]::IsOSUnixLike())' != 'true' and $(PluginsDir) == ''">$(USERPROFILE)/AppData/Roaming/r2modmanPlus-local/PEAK/profiles/Default/BepInEx/plugins/</PluginsDir>
+        
+        <ManagedDir>$(GameInstallDir)PEAK_Data/Managed/</ManagedDir>
 
-  <!-- Import our shared user configuration file -->
-  <Import
-    Project="$(SolutionRoot)Config.Build.user.props"
-    Condition="Exists('$(SolutionRoot)Config.Build.user.props')"
-  />
-
-  <!-- Primary configuration for the project -->
-  <PropertyGroup>
-    <!-- Use latest C# version. -->
-    <LangVersion>latest</LangVersion>
-    <!-- See: https://learn.microsoft.com/en-us/dotnet/csharp/nullable-references -->
-    <Nullable>enable</Nullable>
-    <!-- Build, and other generated files go nicely into artifacts/ directory. -->
-    <UseArtifactsOutput>true</UseArtifactsOutput>
-    <!-- Enable debug symbols. This will show source code line numbers in stack traces. -->
-    <DebugSymbols>true</DebugSymbols>
-    <DebugType>embedded</DebugType>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)' == 'Release'">
-    <!-- Substitute full path to this directory with ./, hiding it from debug symbols. -->
-    <PathMap>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)'))=./</PathMap>
-  </PropertyGroup>
-
-  <!-- Custom props -->
-  <PropertyGroup>
-    <!-- Define a variable that points to this directory. -->
-    <SolutionRoot>$(MSBuildThisFileDirectory)</SolutionRoot>
-    <!-- Default values for game files. -->
-    <PathBeforeSteam Condition="'$([MSBuild]::IsOSUnixLike())' == 'true'">$(HOME)/.local/share/</PathBeforeSteam>
-    <PathBeforeSteam Condition="'$([MSBuild]::IsOSUnixLike())' != 'true'">$(MSBuildProgramFiles32)/</PathBeforeSteam>
-    <PeakGameRootDir Condition="$(PeakGameRootDir) == ''">$(PathBeforeSteam)Steam/steamapps/common/PEAK/</PeakGameRootDir>
-    <PeakPluginsDir Condition="$(PeakPluginsDir) == ''">$(PeakGameRootDir)/BepInEx/plugins/</PeakPluginsDir>
-    <ManagedDir>$(PeakGameRootDir)/PEAK_Data/Managed/</ManagedDir>
-  </PropertyGroup>
+        <PeakGameRootDir>$(GameInstallDir)</PeakGameRootDir>
+        <PeakPluginsDir>$(PluginsDir)</PeakPluginsDir>
+    </PropertyGroup>
 
 </Project>

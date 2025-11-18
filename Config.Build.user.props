@@ -1,15 +1,10 @@
 <Project>
 
   <PropertyGroup>
-    <!-- Override these if your paths are different from the defaults -->
-    <!-- Uncomment and set the path to your game installation -->
-    <!-- <GameInstallDir>/your/path/to/PEAK/</GameInstallDir> -->
-    
-    <!-- Uncomment and set the path to your BepInEx plugins directory -->
-    <!-- <PluginsDir>/your/path/to/BepInEx/plugins/</PluginsDir> -->
+    <GameInstallDir>/mnt/storage/SteamLibrary/steamapps/common/PEAK/</GameInstallDir>
+    <PluginsDir>/home/youri/.local/share/com.kesomannen.gale/peak/profiles/Default/BepInEx/plugins/</PluginsDir>
   </PropertyGroup>
 
-  <!-- Deploy to plugins directory after Debug builds -->
   <Target Name="DeployFiles" AfterTargets="Build" Condition="'$(Configuration)' == 'Debug'">
     <PropertyGroup>
       <DeployPath>$([MSBuild]::NormalizeDirectory($(PluginsDir)))$(AssemblyTitle)/</DeployPath>
@@ -21,19 +16,10 @@
       Text="Plugins directory '$(PluginsDir)' doesn't exist! Configure PluginsDir in Config.Build.user.props to point to your BepInEx/plugins/ directory."
       Condition="!Exists('$(PluginsDir)')"
     />
-    
-    <!-- Create the plugin subdirectory if it doesn't exist -->
+      
     <MakeDir Directories="$(DeployPath)" Condition="!Exists('$(DeployPath)')" />
-    
-    <!-- Copy the DLL to the plugins directory -->
     <Copy SourceFiles="$(TargetPath)" DestinationFolder="$(DeployPath)" />
-    
-    <!-- Copy PDB file if it exists (for debugging) -->
-    <Copy 
-      SourceFiles="$(TargetDir)$(TargetName).pdb" 
-      DestinationFolder="$(DeployPath)"
-      Condition="Exists('$(TargetDir)$(TargetName).pdb')"
-    />
+    <Copy SourceFiles="$(TargetDir)$(TargetName).pdb" DestinationFolder="$(DeployPath)" Condition="Exists('$(TargetDir)$(TargetName).pdb')"/>
   </Target>
 
 </Project>

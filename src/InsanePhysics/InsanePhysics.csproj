@@ -4,51 +4,9 @@
         <AssemblyName>com.github.ryocery.insanephysics</AssemblyName>
         <AssemblyTitle>InsanePhysics</AssemblyTitle>
         <Version>0.1.0</Version>
-
-        <ImplicitUsings>enable</ImplicitUsings>
-        <Nullable>enable</Nullable>
-
-        <BinariesPath Condition="'$(OS)' != 'Windows_NT'">/mnt/storage/SteamLibrary/steamapps/common/PEAK/PEAK_Data/Managed</BinariesPath>
-        <BinariesPath Condition="'$(OS)' == 'Windows_NT'">C:\Program Files (x86)\Steam\steamapps\common\PEAK\PEAK_Data\Managed</BinariesPath>
-        <OutputPath Condition="'$(Configuration)' == 'Debug'">/home/youri/.local/share/com.kesomannen.gale/peak/profiles/Default/BepInEx/plugins/$(AssemblyTitle)</OutputPath>
-        <OutputPath Condition="'$(Configuration)' == 'Release'">bin/$(Configuration)/$(TargetFramework)</OutputPath>
-        <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
     </PropertyGroup>
 
-    
     <ItemGroup>
-        <Reference Include="Assembly-CSharp">
-            <HintPath>$(BinariesPath)/Assembly-CSharp.dll</HintPath>
-            <Private>False</Private>
-        </Reference>
-        <Reference Include="UnityEngine">
-            <HintPath>$(BinariesPath)/UnityEngine.dll</HintPath>
-            <Private>False</Private>
-        </Reference>
-        <Reference Include="UnityEngine.CoreModule">
-            <HintPath>$(BinariesPath)/UnityEngine.CoreModule.dll</HintPath>
-            <Private>False</Private>
-        </Reference>
-        <Reference Include="UnityEngine.PhysicsModule">
-            <HintPath>$(BinariesPath)/UnityEngine.PhysicsModule.dll</HintPath>
-            <Private>False</Private>
-        </Reference>
-        <Reference Include="PhotonRealtime">
-            <HintPath>$(BinariesPath)/PhotonRealtime.dll</HintPath>
-            <Private>False</Private>
-        </Reference>
-        <Reference Include="PhotonUnityNetworking">
-            <HintPath>$(BinariesPath)/PhotonUnityNetworking.dll</HintPath>
-            <Private>False</Private>
-        </Reference>
-        <Reference Include="Photon3Unity3D">
-            <HintPath>$(BinariesPath)/Photon3Unity3D.dll</HintPath>
-            <Private>False</Private>
-        </Reference>
-    </ItemGroup>
-
-    
-    <ItemGroup>
-      <Folder Include="Patches\" />
+        <Folder Include="Patches\" />
     </ItemGroup>
 </Project>
