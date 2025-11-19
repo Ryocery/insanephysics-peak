@@ -27,7 +27,7 @@ public class HostileProjectile : MonoBehaviour {
 
         Character victim = collision.gameObject.GetComponentInParent<Character>();
 
-        if (victim != null) {
+        if (victim is not null) {
             if (victim.data.dead || victim.data.fullyPassedOut) return;
 
             Debug.Log($"[InsanePhysics] BONK! {name} knocked out {victim.characterName}");
