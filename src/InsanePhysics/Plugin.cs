@@ -16,7 +16,7 @@ public partial class Plugin : BaseUnityPlugin {
     public static ConfigEntry<float> PlayerForceMultiplier { get; private set; } = null!;
     public static ConfigEntry<float> HostileObjectPower { get; private set; } = null!;
     public static ConfigEntry<bool> EnableHostileObjects { get; private set; } = null!;
-
+    
     private void Awake() {
         Log = Logger;
 
